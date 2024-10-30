@@ -1,0 +1,51 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+.bg_color{
+    background-color: #618eb8;
+}
+.bor_radius{
+    border-radius: 15px;
+}
+.bor_radius2{
+    border-radius: 20px;
+}
+.padding{
+    padding: 12px 18px !important;
+}
+.padding2{
+    padding: 8px 18px !important;
+}
+.studentdetail_page .detail_box .image img{
+    width: "120px" !important;
+    height: "120px" !important;
+    border-radius: 10px;
+}
+.studentdetail_page .student_details .detail h4{
+   font-size: 25px;
+   font-weight: 500;
+}
+.studentdetail_page .student_details .detail p{
+    font-size: 18px;
+    line-height: 20px !important;
+    font-weight: 500;
+}
+.comman_font{
+    font-size: 22px;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+
+
+
+
+
+
+
+
