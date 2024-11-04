@@ -1,0 +1,65 @@
+{
+    "students": [
+        {
+            "grNumber": "123456",
+            "name": "Mihir Dhankani",
+            "class": "10th B",
+            "dob": "17/01/2009",
+            "bloodGroup": "O+",
+            "contactInfo": {
+                "phone": "+1234567890",
+                "email": "mihir@example.com",
+                "address": "123 Street Name, City, Country",
+                "imageUrl": "https://img.freepik.com/premium-photo/school-student-white-background_1237858-1224.jpg?w=120"
+            },
+            "medicalInfo": {
+                "allergies": [
+                    "Peanuts",
+                    "Shellfish",
+                    "Penicillin"
+                ],
+                "medications": [
+                    "Amoxicillin",
+                    "Ibuprofen"
+                ],
+                "healthHistory": [
+                    "Asthma",
+                    "Chickenpox",
+                    "Recent flu vaccination"
+                ]
+            },
+            "remarks": [],
+            "canteen": [],
+            "consents": [],
+            "amendments": [],
+            "miscellaneous": []
+        },
+        {
+            "grNumber": "67891",
+            "name": "Ananya Sharma",
+            "class": "10th A",
+            "dob": "21/05/2008",
+            "bloodGroup": "A+",
+            "contactInfo": {
+                "phone": "+0987654321",
+                "email": "ananya@example.com",
+                "address": "456 Another St, City, Country",
+                "imageUrl": "https://img.freepik.com/free-photo/school-girl-white-background_1237858-1225.jpg?w=120"
+            },
+            "medicalInfo": {
+                "allergies": [
+                    "None"
+                ],
+                "medications": [],
+                "healthHistory": [
+                    "Healthy"
+                ]
+            },
+            "remarks": [],
+            "canteen": [],
+            "consents": [],
+            "amendments": [],
+            "miscellaneous": []
+        }
+    ]
+}
