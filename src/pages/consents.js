@@ -1,7 +1,7 @@
 import React from "react";
 
-const consents = () => {
-  return <div>consents</div>;
+const Consents = () => {
+  return <div>Consents</div>;
 };
 
-export default consents;
+export default Consents;

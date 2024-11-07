@@ -7,6 +7,7 @@ const StudentDetail = () => {
   const [grNumber, setGrNumber] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
   const [studentInfo, setStudentInfo] = useState(null);
+  const [isInvalidQR, setIsInvalidQR] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
   const buttonRoutes = [
@@ -14,9 +15,9 @@ const StudentDetail = () => {
     { label: "Medicals", path: "/medicle" },
     { label: "Remarks", path: "/remarks" },
     { label: "Canteen", path: "/canteen" },
-    { label: "Consents", path: "/" },
-    { label: "Amendments", path: "/" },
-    { label: "Miscellaneous", path: "/" },
+    { label: "Consents", path: "/consents" },
+    { label: "Permission", path: "/permission" },
+    { label: "Miscellaneous", path: "/miscellaneous" },
   ];
 
   useEffect(() => {
@@ -27,9 +28,15 @@ const StudentDetail = () => {
     }
   }, []);
 
-  const fetchStudentData = (grNumber) => {
-    const studentData = getStudentByGrNumber(grNumber);
-    setStudentInfo(studentData);
+  const fetchStudentData = async (grNumber) => {
+    const studentData = await getStudentByGrNumber(grNumber);
+    if (studentData) {
+      setStudentInfo(studentData);
+      setIsInvalidQR(false);
+    } else {
+      setIsInvalidQR(true);
+      setStudentInfo(null);
+    }
   };
 
   const handleScan = (qr) => {
@@ -45,7 +52,9 @@ const StudentDetail = () => {
   const handleError = (err) => {
     console.error(err);
   };
-  console.log(getStudentByGrNumber(grNumber), "studentInfo");
+
+  console.log(studentInfo, "studentInfo");
+
   if (redirect) {
     return <Navigate to="/" />;
   }
@@ -54,7 +63,24 @@ const StudentDetail = () => {
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md border rounded-lg shadow-lg p-6 bg-white">
         <div className="flex flex-col">
-          {studentInfo ? (
+          {isInvalidQR ? (
+            <div className="flex flex-col items-center justify-center">
+              <h2 className="text-2xl font-bold text-red-500 mb-4">
+                Invalid QR Code
+              </h2>
+              <p className="text-gray-600 mb-4">
+                The QR code scanned is invalid.
+              </p>
+              <button
+                onClick={() => {
+                  setIsInvalidQR(false);
+                  setIsScanning(true);
+                }}
+                className="bg-[#4f83c0] rounded-lg text-white text-lg font-medium py-2 px-4 transition duration-200 hover:bg-[#3f6a9c]">
+                Scan Again
+              </button>
+            </div>
+          ) : studentInfo ? (
             <div className="flex items-center bg-[#4f83c0] rounded-lg p-4 gap-4 shadow-md">
               <div className="flex-shrink-0">
                 <img
@@ -109,12 +135,7 @@ const StudentDetail = () => {
                 <NavLink
                   key={index}
                   to={item.path}
-                  className="block bg-[#4f83c0] rounded-lg text-white text-lg font-medium text-center py-2 transition duration-200 hover:bg-[#3f6a9c]"
-                  onClick={() => {
-                    if (!item.path) {
-                      setRedirect(true);
-                    }
-                  }}>
+                  className="block bg-[#4f83c0] rounded-lg text-white text-lg font-medium text-center py-2 transition duration-200 hover:bg-[#3f6a9c]">
                   {item.label}
                 </NavLink>
               ))}

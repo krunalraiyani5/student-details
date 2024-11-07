@@ -5,13 +5,17 @@ const Medicals = () => {
   const [medicalInfo, setMedicalInfo] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchData = async (grNumber) => {
+    const student = await getStudentByGrNumber(grNumber);
+    if (student) {
+      setMedicalInfo(student.medicalInfo);
+    }
+  };
+
   useEffect(() => {
     const grNumber = localStorage.getItem("grNumber");
     if (grNumber) {
-      const student = getStudentByGrNumber(grNumber);
-      if (student) {
-        setMedicalInfo(student.medicalInfo);
-      }
+      fetchData(grNumber);
     }
     setLoading(false);
   }, []);
@@ -34,35 +38,29 @@ const Medicals = () => {
         <h2 className="text-2xl font-semibold text-center mb-4">
           Medical Details
         </h2>
+        {/* Allergies Section */}
         <div className="bg-[#618eb8] rounded-[15px] p-4 mb-4 text-white">
           <h4 className="text-xl font-medium mb-2">Allergies</h4>
           <ul className="list-disc pl-5">
-            {medicalInfo.allergies.map((allergy, index) => (
-              <li key={index} className="text-lg font-medium">
-                {allergy}
-              </li>
-            ))}
+            {medicalInfo.allergies.length > 0 ? (
+              medicalInfo.allergies.map((allergy, index) => (
+                <li key={index} className="text-lg font-medium">
+                  {allergy}
+                </li>
+              ))
+            ) : (
+              <li className="text-lg font-medium">No known allergies</li>
+            )}
           </ul>
         </div>
+
         <div className="bg-[#618eb8] rounded-[15px] p-4 mb-4 text-white">
-          <h4 className="text-xl font-medium mb-2">Medications</h4>
-          <ul className="list-disc pl-5">
-            {medicalInfo.medications.map((medication, index) => (
-              <li key={index} className="text-lg font-medium">
-                {medication}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="bg-[#618eb8] rounded-[15px] p-4 text-white">
-          <h4 className="text-xl font-medium mb-2">Health History</h4>
-          <ul className="list-disc pl-5">
-            {medicalInfo.healthHistory.map((history, index) => (
-              <li key={index} className="text-lg font-medium">
-                {history}
-              </li>
-            ))}
-          </ul>
+          <h4 className="text-xl font-medium mb-2">General Information</h4>
+          <p className="text-lg font-medium">
+            Blood Group: {medicalInfo.bloodGroup}
+          </p>
+          <p className="text-lg font-medium">Height: {medicalInfo.height}</p>
+          <p className="text-lg font-medium">Sex: {medicalInfo.sex}</p>
         </div>
       </div>
     </div>

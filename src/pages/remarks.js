@@ -1,7 +1,7 @@
 import React from "react";
 
-const remarks = () => {
-  return <div>remarks</div>;
+const Remarks = () => {
+  return <div>Remarks</div>;
 };
 
-export default remarks;
+export default Remarks;

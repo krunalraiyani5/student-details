@@ -5,11 +5,15 @@ const ContactDetails = () => {
   const [studentData, setStudentData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchData = async (grNumber) => {
+    const data = await getStudentByGrNumber(grNumber);
+    setStudentData(data);
+  };
+
   useEffect(() => {
     const grNumber = localStorage.getItem("grNumber");
     if (grNumber) {
-      const data = getStudentByGrNumber(grNumber);
-      setStudentData(data);
+      fetchData(grNumber);
     }
     setLoading(false);
   }, []);
@@ -22,7 +26,11 @@ const ContactDetails = () => {
     return <p className="text-center">No student found with this GR number.</p>;
   }
 
-  const { name, phone, email, address, imageUrl } = studentData.contactInfo;
+  const { contactDetails } = studentData;
+  const { fatherMobile, motherMobile, fatherEmail, motherEmail } =
+    contactDetails;
+
+  const cleanEmail = (email) => email.replace("mailto:", "");
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
@@ -31,16 +39,15 @@ const ContactDetails = () => {
           Contact Details
         </h2>
         <div className="flex items-center bg-[#618eb8] rounded-[15px] p-4 mb-4">
-          <img
-            src={imageUrl}
-            alt={name}
-            className="w-[120px] h-[120px] rounded-lg mr-4"
-          />
           <div className="text-white">
-            <h4 className="text-xl font-medium">{name}</h4>
-            <p className="text-lg font-medium">Phone: {phone}</p>
-            <p className="text-lg font-medium">Email: {email}</p>
-            <p className="text-lg font-medium">Address: {address}</p>
+            <p className="text-lg font-medium">Father Mobile: {fatherMobile}</p>
+            <p className="text-lg font-medium">Mother Mobile: {motherMobile}</p>
+            <p className="text-lg font-medium">
+              Father Email: {cleanEmail(fatherEmail)}
+            </p>
+            <p className="text-lg font-medium">
+              Mother Email: {cleanEmail(motherEmail)}
+            </p>
           </div>
         </div>
       </div>
