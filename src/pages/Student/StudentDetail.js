@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Navigate } from "react-router-dom";
-import QrScanner from "react-qr-scanner";
+import QrScanner from "react-qr-barcode-scanner"; // Make sure this is the right package you're using
 import { getStudentByGrNumber } from "../../utils/getDataFromGr";
 
 const StudentDetail = () => {
@@ -9,16 +9,6 @@ const StudentDetail = () => {
   const [studentInfo, setStudentInfo] = useState(null);
   const [isInvalidQR, setIsInvalidQR] = useState(false);
   const [redirect, setRedirect] = useState(false);
-
-  const buttonRoutes = [
-    { label: "Contact Details", path: "/contact-details" },
-    { label: "Medicals", path: "/medicle" },
-    { label: "Remarks", path: "/remarks" },
-    { label: "Canteen", path: "/canteen" },
-    { label: "Consents", path: "/consents" },
-    { label: "Permission", path: "/permission" },
-    { label: "Miscellaneous", path: "/miscellaneous" },
-  ];
 
   useEffect(() => {
     const storedGrNumber = localStorage.getItem("grNumber");
@@ -31,8 +21,8 @@ const StudentDetail = () => {
   const fetchStudentData = async (grNumber) => {
     const studentData = await getStudentByGrNumber(grNumber);
     if (studentData) {
-      setStudentInfo(studentData);
       setIsInvalidQR(false);
+      setStudentInfo(studentData);
     } else {
       setIsInvalidQR(true);
       setStudentInfo(null);
@@ -40,17 +30,28 @@ const StudentDetail = () => {
   };
 
   const handleScan = (qr) => {
+    console.log("Scanned QR Code Details:", qr);
     const data = qr?.text;
+
     if (data) {
+      console.log("Extracted GR Number:", data);
+
       localStorage.setItem("grNumber", data);
+
+      setIsInvalidQR(false);
       setGrNumber(data);
+
       fetchStudentData(data);
+
       setIsScanning(false);
+    } else {
+      console.error("QR code did not contain valid data.");
+      setIsInvalidQR(true);
     }
   };
 
   const handleError = (err) => {
-    console.error(err);
+    console.error("Error scanning QR code", err);
   };
 
   console.log(studentInfo, "studentInfo");
@@ -58,6 +59,16 @@ const StudentDetail = () => {
   if (redirect) {
     return <Navigate to="/" />;
   }
+
+  const buttonRoutes = [
+    { label: "Contact Details", path: "/contact-details" },
+    { label: "Medicals", path: "/medicle" },
+    { label: "Remarks", path: "/remarks" },
+    { label: "Canteen", path: "/canteen" },
+    { label: "Consents", path: "/consents" },
+    { label: "Permission", path: "/permission" },
+    { label: "Miscellaneous", path: "/miscellaneous" },
+  ];
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
@@ -119,7 +130,7 @@ const StudentDetail = () => {
               <QrScanner
                 delay={300}
                 onError={handleError}
-                onScan={handleScan}
+                onUpdate={(err, qr) => qr && handleScan(qr)}
                 style={{
                   width: "100%",
                   borderRadius: "0.5rem",

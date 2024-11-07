@@ -26,7 +26,20 @@ const Canteen = () => {
     return <p className="text-center">No student found with this GR number.</p>;
   }
 
+  // Default fallback values if the data is undefined
   const { canteen, lunch, lunchFacility } = studentData;
+  const canteenCashBalance = canteen?.cashBalance || "Not Available";
+  const lunchStatus = lunchFacility ? "Available" : "Not Available";
+  const lunchAvailability =
+    lunch && Object.keys(lunch).length > 0
+      ? Object.entries(lunch).map(([id, status]) => (
+          <div key={id} className="mb-2">
+            <p className="text-lg">
+              Lunch ID: {id} - {status ? "Available" : "Not Available"}
+            </p>
+          </div>
+        ))
+      : "No lunch information available.";
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
@@ -38,37 +51,19 @@ const Canteen = () => {
         {/* Cash Balance */}
         <div className="bg-[#618eb8] rounded-[15px] p-4 mb-4 text-white">
           <h4 className="text-xl font-medium mb-2">Canteen Cash Balance</h4>
-          <p className="text-lg">
-            {canteen?.cashBalance
-              ? `₹${canteen.cashBalance}`
-              : "No balance available"}
-          </p>
+          <p className="text-lg">{`₹${canteenCashBalance}`}</p>
         </div>
 
         {/* Lunch Facility */}
         <div className="bg-[#618eb8] rounded-[15px] p-4 mb-4 text-white">
           <h4 className="text-xl font-medium mb-2">Lunch Facility Status</h4>
-          <p className="text-lg">
-            {lunchFacility ? "Available" : "Not Available"}
-          </p>
+          <p className="text-lg">{lunchStatus}</p>
         </div>
 
         {/* Lunch Availability */}
         <div className="bg-[#618eb8] rounded-[15px] p-4 text-white">
           <h4 className="text-xl font-medium mb-2">Lunch Availability</h4>
-          {Object.keys(lunch).length > 0 ? (
-            <div>
-              {Object.entries(lunch).map(([id, status]) => (
-                <div key={id} className="mb-2">
-                  <p className="text-lg">
-                    Lunch ID: {id} - {status ? "Available" : "Not Available"}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-lg">No lunch information available.</p>
-          )}
+          <div>{lunchAvailability}</div>
         </div>
       </div>
     </div>
