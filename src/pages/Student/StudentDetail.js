@@ -54,6 +54,12 @@ const StudentDetail = () => {
     console.error("Error scanning QR code", err);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("grNumber");
+    setGrNumber(null);
+    setStudentInfo(null);
+  };
+
   console.log(studentInfo, "studentInfo");
 
   if (redirect) {
@@ -150,6 +156,11 @@ const StudentDetail = () => {
                   {item.label}
                 </NavLink>
               ))}
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 rounded-lg text-white text-lg font-medium text-center py-2 mt-4 transition duration-200 hover:bg-red-600 w-full">
+                Logout
+              </button>
             </div>
           )}
         </div>
