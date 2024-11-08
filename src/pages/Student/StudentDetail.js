@@ -111,7 +111,7 @@ const StudentDetail = () => {
                 <p className="text-lg">GR: {studentInfo.grNumber}</p>
                 <p className="text-lg">Class: {studentInfo.class}</p>
                 <p className="text-lg">DOB: {studentInfo.dob}</p>
-                <p className="text-lg">Blood Group: {studentInfo.bloodGroup}</p>
+                <p className="text-lg">Blood Group: {studentInfo.blood}</p>
               </div>
             </div>
           ) : (

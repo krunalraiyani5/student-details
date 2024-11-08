@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, set } from "firebase/database";
+import { getDatabase, ref, get, set, update, remove } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBwi5o_yMx8nG_sGkRjaVHZskeXzCIgQRA",
@@ -29,34 +29,27 @@ export const getStudentByGrNumber = async (grNumber) => {
     const student = snapshot.val();
     console.log("Student Data:", student);
 
-    const allergies = student.medicalInfo?.allergies
-      ? Object.keys(student.medicalInfo.allergies).filter(
-          (key) => student.medicalInfo.allergies[key]
-        )
-      : [];
-
     return {
       grNumber,
-      name: student.name,
-      class: student.class,
-      dob: student.dob,
-      contactDetails: {
-        fatherMobile: student.contactDetails?.fatherMobile,
-        motherMobile: student.contactDetails?.motherMobile,
-        fatherEmail: student.contactDetails?.fatherEmail,
-        motherEmail: student.contactDetails?.motherEmail,
-      },
-      medicalInfo: {
-        allergies,
-        bloodGroup: student.medicalInfo?.blood,
-        height: student.medicalInfo?.height,
-        sex: student.medicalInfo?.sex,
-      },
-      permissions: student.permissions,
-      canteen: { cashBalance: student.canteenCash },
-      lunch: student.lunch,
-      lunchFacility: student.lunchFacility,
+      ...(student || {}),
     };
+  } catch (error) {
+    console.error("Error fetching student data:", error);
+    return null;
+  }
+};
+
+export const getAllStudents = async () => {
+  const studentsRef = ref(database, "students/");
+  console.log(studentsRef, "studentsRef");
+  try {
+    const snapshot = await get(studentsRef);
+    if (snapshot.exists()) {
+      return snapshot.val();
+    } else {
+      console.log("No students found.");
+      return null;
+    }
   } catch (error) {
     console.error("Error fetching student data:", error);
     return null;
@@ -67,9 +60,43 @@ export const insertStudent = async (grNumber, studentData) => {
   const studentRef = ref(database, `students/${grNumber}`);
 
   try {
+    const snapshot = await get(studentRef);
+    if (snapshot.exists()) {
+      return { error: "GR number already exists" };
+    }
+
     await set(studentRef, studentData);
-    console.log("Student data has been successfully inserted.");
+    return { success: true };
   } catch (error) {
     console.error("Error inserting student data:", error);
+    return { error: "Error inserting student data" };
+  }
+};
+
+export const updateStudent = async (grNumber, updatedData) => {
+  const studentRef = ref(database, `students/${grNumber}`);
+
+  try {
+    await update(studentRef, updatedData);
+    console.log("Student data has been successfully updated.");
+    return { success: true, message: "Student data updated successfully." };
+  } catch (error) {
+    console.error("Error updating student data:", error);
+    return {
+      success: false,
+      error: error.message || "An error occurred while updating student data.",
+    };
+  }
+};
+
+export const deleteStudent = async (grNumber) => {
+  const studentRef = ref(database, `students/${grNumber}`);
+  try {
+    await remove(studentRef);
+    console.log(`Student with GR Number ${grNumber} has been deleted.`);
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting student data:", error);
+    return { success: false, error: error.message };
   }
 };

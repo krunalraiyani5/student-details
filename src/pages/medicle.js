@@ -57,7 +57,7 @@ const Medicals = () => {
         <div className="bg-[#618eb8] rounded-[15px] p-4 mb-4 text-white">
           <h4 className="text-xl font-medium mb-2">General Information</h4>
           <p className="text-lg font-medium">
-            Blood Group: {medicalInfo.bloodGroup}
+            Blood Group: {medicalInfo.blood}
           </p>
           <p className="text-lg font-medium">Height: {medicalInfo.height}</p>
           <p className="text-lg font-medium">Sex: {medicalInfo.sex}</p>
