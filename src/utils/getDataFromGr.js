@@ -29,30 +29,30 @@ export const getStudentByGrNumber = async (grNumber) => {
     const student = snapshot.val();
     console.log("Student Data:", student);
 
-    const allergies = student.Medical?.Alergies
-      ? Object.keys(student.Medical.Alergies).filter(
-          (key) => student.Medical.Alergies[key]
+    const allergies = student.medicalInfo?.allergies
+      ? Object.keys(student.medicalInfo.allergies).filter(
+          (key) => student.medicalInfo.allergies[key]
         )
       : [];
 
     return {
       grNumber,
-      name: student.Name,
-      class: student.Class,
-      dob: student.Dob,
+      name: student.name,
+      class: student.class,
+      dob: student.dob,
       contactDetails: {
-        fatherMobile: student.ContactDetails?.FatherMobile,
-        motherMobile: student.ContactDetails?.MotherMobile,
-        fatherEmail: student.ContactDetails?.fatherEmail,
-        motherEmail: student.ContactDetails?.motherEmail,
+        fatherMobile: student.contactDetails?.fatherMobile,
+        motherMobile: student.contactDetails?.motherMobile,
+        fatherEmail: student.contactDetails?.fatherEmail,
+        motherEmail: student.contactDetails?.motherEmail,
       },
       medicalInfo: {
         allergies,
-        bloodGroup: student.Medical?.Blood,
-        height: student.Medical?.Height,
-        sex: student.Medical?.Sex,
+        bloodGroup: student.medicalInfo?.blood,
+        height: student.medicalInfo?.height,
+        sex: student.medicalInfo?.sex,
       },
-      permissions: student.Permisions,
+      permissions: student.permissions,
       canteen: { cashBalance: student.canteenCash },
       lunch: student.lunch,
       lunchFacility: student.lunchFacility,
