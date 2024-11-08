@@ -22,6 +22,13 @@ const AllUsers = () => {
     fetchStudents();
   }, []);
 
+  const handleDownloadQR = (qrCode) => {
+    const link = document.createElement("a");
+    link.href = qrCode;
+    link.download = "qr-code.png";
+    link.click();
+  };
+
   const handleDeleteClick = (grNumber) => {
     setShowConfirmModal(true);
     setStudentToDelete(grNumber);
@@ -107,6 +114,11 @@ const AllUsers = () => {
                   </td>
                   <td className="px-4 py-2 text-center">
                     <div className="flex justify-center">
+                      <button
+                        onClick={() => handleDownloadQR(student.qr)}
+                        className="px-4 py-2 bg-yellow-500 text-white rounded-lg mr-2 hover:bg-yellow-600 transition-all duration-300 ease-in-out">
+                        Download QR
+                      </button>
                       <button
                         onClick={() => handleEdit(student.grNumber)}
                         className="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600 transition-all duration-300 ease-in-out">
