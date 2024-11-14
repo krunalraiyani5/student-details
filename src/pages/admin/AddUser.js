@@ -11,31 +11,36 @@ const AddUser = () => {
 
   const initialValues = {
     grNumber: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    grade: "",
     class: "",
-    name: "",
-    dob: "",
     contactDetails: {
-      fatherMobile: "",
+      motherEmail: "",
       motherMobile: "",
       fatherEmail: "",
-      motherEmail: "",
+      fatherMobile: "",
     },
     medical: {
-      allergies: {
-        dust: false,
-        penicillin: false,
-      },
-      blood: "",
+      bloodGroup: "",
       height: "",
-      sex: "",
+      allergies: "",
+      medicalConsent: false,
+    },
+    lunchPreferences: {
+      lunchRequired: false,
+      dietaryPreference: "Non-Jain",
     },
     permissions: {
       artRoom: false,
       compLab: false,
       eLibrary: false,
     },
-    cashBalance: "",
-    lunchFacility: false,
+    hipProgram: {
+      dayOfParticipation: "Monday",
+      duration: "",
+    },
   };
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -85,12 +90,14 @@ const AddUser = () => {
           <div className="flex space-x-4">
             <button
               onClick={handleDownloadQR}
-              className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition-colors duration-300">
+              className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition-colors duration-300"
+            >
               Download QR Code
             </button>
             <button
               onClick={handleBackToHome}
-              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors duration-300">
+              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
+            >
               Back to Home
             </button>
           </div>
@@ -109,173 +116,221 @@ const AddUser = () => {
               </div>
             )}
 
+            {/* GR Number */}
+            <div>
+              <label className="block text-gray-600">GR Number</label>
+              <Field
+                type="text"
+                name="grNumber"
+                className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+
+            {/* Personal Details */}
+            <h3 className="text-xl font-semibold text-gray-700">
+              Personal Details
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-600">GR Number</label>
+                <label className="block text-gray-600">First Name *</label>
                 <Field
                   type="text"
-                  name="grNumber"
+                  name="firstName"
                   className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
                 />
               </div>
-
               <div>
-                <label className="block text-gray-600">Class</label>
+                <label className="block text-gray-600">Middle Name</label>
                 <Field
                   type="text"
+                  name="middleName"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Last Name *</label>
+                <Field
+                  type="text"
+                  name="lastName"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Grade *</label>
+                <Field
+                  as="select"
+                  name="grade"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="">Select Grade</option>
+                  {/* Add Grade Options Here */}
+                </Field>
+              </div>
+              <div>
+                <label className="block text-gray-600">Class *</label>
+                <Field
+                  as="select"
                   name="class"
                   className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                />
+                >
+                  <option value="">Select Class</option>
+                  {/* Add Class Options Here */}
+                </Field>
               </div>
+            </div>
 
+            {/* Contact Details */}
+            <h3 className="text-xl font-semibold text-gray-700">
+              Contact Details
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-600">Name</label>
-                <Field
-                  type="text"
-                  name="name"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-600">Date of Birth</label>
-                <Field
-                  type="date"
-                  name="dob"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-600">Father's Mobile</label>
-                <Field
-                  type="text"
-                  name="contactDetails.fatherMobile"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-600">Mother's Mobile</label>
-                <Field
-                  type="text"
-                  name="contactDetails.motherMobile"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-600">Father's Email</label>
-                <Field
-                  type="email"
-                  name="contactDetails.fatherEmail"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-600">Mother's Email</label>
+                <label className="block text-gray-600">Mother's Email *</label>
                 <Field
                   type="email"
                   name="contactDetails.motherEmail"
                   className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
                 />
               </div>
-
-              <div>
-                <label className="block text-gray-600">Blood Type</label>
-                <Field
-                  type="text"
-                  name="medical.blood"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-600">Height (cm)</label>
-                <Field
-                  type="number"
-                  name="medical.height"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-600">Sex</label>
-                <Field
-                  as="select"
-                  name="medical.sex"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none">
-                  <option value="">Select</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </Field>
-              </div>
-
               <div>
                 <label className="block text-gray-600">
-                  Canteen Cash Balance
+                  Mother's Contact Number *
                 </label>
                 <Field
-                  type="number"
-                  name="cashBalance"
+                  type="text"
+                  name="contactDetails.motherMobile"
                   className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
                 />
               </div>
+              <div>
+                <label className="block text-gray-600">Father's Email *</label>
+                <Field
+                  type="email"
+                  name="contactDetails.fatherEmail"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">
+                  Father's Contact Number *
+                </label>
+                <Field
+                  type="text"
+                  name="contactDetails.fatherMobile"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+            </div>
 
+            {/* Medical Information */}
+            <h3 className="text-xl font-semibold text-gray-700">
+              Medical Information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-600">Blood Group</label>
+                <Field
+                  as="select"
+                  name="medical.bloodGroup"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="">Select Blood Group</option>
+                  {/* Add Blood Group Options */}
+                </Field>
+              </div>
+              <div>
+                <label className="block text-gray-600">Height</label>
+                <Field
+                  as="select"
+                  name="medical.height"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="">Select Height</option>
+                  {/* Add Height Options */}
+                </Field>
+              </div>
               <div className="col-span-2">
                 <label className="block text-gray-600">Allergies</label>
-                <div className="flex space-x-4 mt-2">
-                  <label>
-                    <Field type="checkbox" name="medical.allergies.dust" />
-                    <span className="ml-2">Dust</span>
-                  </label>
-                  <label>
-                    <Field
-                      type="checkbox"
-                      name="medical.allergies.penicillin"
-                    />
-                    <span className="ml-2">Penicillin</span>
-                  </label>
-                </div>
+                <Field
+                  type="text"
+                  name="medical.allergies"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
               </div>
-
               <div className="col-span-2">
-                <label className="block text-gray-600">Permissions</label>
-                <div className="flex space-x-4 mt-2">
-                  <label>
-                    <Field type="checkbox" name="permissions.artRoom" />
-                    <span className="ml-2">Art Room</span>
-                  </label>
-                  <label>
-                    <Field type="checkbox" name="permissions.compLab" />
-                    <span className="ml-2">Computer Lab</span>
-                  </label>
-                  <label>
-                    <Field type="checkbox" name="permissions.eLibrary" />
-                    <span className="ml-2">E-Library</span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="col-span-2">
-                <label className="block text-gray-600">Lunch Facility</label>
+                <label className="block text-gray-600">Medical Consent</label>
                 <Field
                   type="checkbox"
-                  name="lunchFacility"
+                  name="medical.medicalConsent"
                   className="w-6 h-6"
                 />
               </div>
             </div>
 
-            <div className="text-center mt-6">
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors duration-300">
-                Submit
-              </button>
+            {/* Lunch Preferences */}
+            <h3 className="text-xl font-semibold text-gray-700">
+              Lunch Preferences
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-600">Lunch Required</label>
+                <Field
+                  type="checkbox"
+                  name="lunchPreferences.lunchRequired"
+                  className="w-6 h-6"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">
+                  Dietary Preference
+                </label>
+                <Field
+                  as="select"
+                  name="lunchPreferences.dietaryPreference"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="Non-Jain">Non-Jain</option>
+                  <option value="Jain">Jain</option>
+                </Field>
+              </div>
             </div>
+
+            {/* Permissions & Extracurricular Activities */}
+            <h3 className="text-xl font-semibold text-gray-700">
+              Permissions & Extracurricular Activities
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-600">
+                  Day of Participation (HIP Program)
+                </label>
+                <Field
+                  as="select"
+                  name="hipProgram.dayOfParticipation"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="Monday">Monday</option>
+                  {/* Add more days if needed */}
+                </Field>
+              </div>
+              <div>
+                <label className="block text-gray-600">
+                  Date & Time Duration
+                </label>
+                <Field
+                  type="text"
+                  name="hipProgram.duration"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white p-2 rounded mt-6 hover:bg-blue-700 transition-colors duration-300"
+            >
+              Submit
+            </button>
           </Form>
         </Formik>
       )}
