@@ -163,7 +163,10 @@ const AddUser = () => {
                   className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
                 >
                   <option value="">Select Grade</option>
-                  {/* Add Grade Options Here */}
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
                 </Field>
               </div>
               <div>
@@ -235,19 +238,23 @@ const AddUser = () => {
                   className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
                 >
                   <option value="">Select Blood Group</option>
-                  {/* Add Blood Group Options */}
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
                 </Field>
               </div>
               <div>
                 <label className="block text-gray-600">Height</label>
                 <Field
-                  as="select"
+                  type="text"
                   name="medical.height"
                   className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                >
-                  <option value="">Select Height</option>
-                  {/* Add Height Options */}
-                </Field>
+                />
               </div>
               <div className="col-span-2">
                 <label className="block text-gray-600">Allergies</label>
