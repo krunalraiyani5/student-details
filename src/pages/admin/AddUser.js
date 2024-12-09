@@ -16,6 +16,8 @@ const AddUser = () => {
     lastName: "",
     grade: "",
     class: "",
+    adhaarCard: "",
+    enrollmentCode: "",
     contactDetails: {
       motherEmail: "",
       motherMobile: "",
@@ -23,6 +25,7 @@ const AddUser = () => {
       fatherMobile: "",
     },
     medical: {
+      sex: "",
       bloodGroup: "",
       height: "",
       allergies: "",
@@ -37,9 +40,22 @@ const AddUser = () => {
       compLab: false,
       eLibrary: false,
     },
-    hipProgram: {
+    grp3: "",
+    HLPProgram: {
       dayOfParticipation: "Monday",
       duration: "",
+    },
+    misc: {
+      nationality: "",
+      Religion: "",
+      motherName: "",
+      fatherName: "",
+    },
+    address: {
+      flatNo: "",
+      building: "",
+      street: "",
+      pincode: "",
     },
   };
 
@@ -180,6 +196,22 @@ const AddUser = () => {
                   {/* Add Class Options Here */}
                 </Field>
               </div>
+              <div>
+                <label className="block text-gray-600">AdhaarCard *</label>
+                <Field
+                  type="number"
+                  name="adhaarCard"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Enrollment Code *</label>
+                <Field
+                  type="text"
+                  name="enrollmentCode"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
             </div>
 
             {/* Contact Details */}
@@ -226,9 +258,24 @@ const AddUser = () => {
             </div>
 
             {/* Medical Information */}
+
             <h3 className="text-xl font-semibold text-gray-700">
               Medical Information
             </h3>
+            <div>
+              <label className="block text-gray-600">Sex</label>
+              <Field
+                as="select"
+                name="medical.sex"
+                className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+              >
+                <option value="">Select Sex</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </Field>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-600">Blood Group</label>
@@ -299,6 +346,124 @@ const AddUser = () => {
                   <option value="Non-Jain">Non-Jain</option>
                   <option value="Jain">Jain</option>
                 </Field>
+              </div>
+              <div>
+                <label className="block text-gray-600">
+                  ICSE Group 3 list *
+                </label>
+                <Field
+                  as="select"
+                  name="grp3"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="">Select Group</option>
+                  <option value="Computer Applications">
+                    Computer Applications
+                  </option>
+                  <option value="Economic Applications">
+                    Economic Applications
+                  </option>
+                  <option value="Commercial Applications">
+                    Commercial Applications
+                  </option>
+                  <option value="Environmental Applications">
+                    Environmental Applications
+                  </option>
+                  <option value="Art">Art</option>
+                  <option value="Artificial inteligence and robotics">
+                    Artificial inteligence and robotics
+                  </option>
+                  <option value="Cookery">Cookery</option>
+                  <option value="Performing Arts (Dance, Drama, Music)">
+                    Performing Arts (Dance, Drama, Music)
+                  </option>
+                  <option value="Physical Education">Physical Education</option>
+                  <option value="Yoga">Yoga</option>
+                </Field>
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-700">
+              Miscellaneous Information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-600">Nationality</label>
+                <Field
+                  type="text"
+                  name="misc.nationality"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Religion</label>
+                <Field
+                  as="select"
+                  name="misc.Religion"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="">Select Group</option>
+                  <option value="Sanatan">Sanatan</option>
+                  <option value="Jainism">Jainism</option>
+                  <option value="Sikhi">Sikhi</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Cristanity">Cristanity</option>
+                  <option value="Judisum">Judisum</option>
+                  <option value="Budhisim">Budhisim</option>
+                  <option value="Agnostic">Agnostic</option>
+                  <option value="Atheist">Atheist</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </Field>
+              </div>
+              <div>
+                <label className="block text-gray-600">Mother's Name</label>
+                <Field
+                  type="text"
+                  name="misc.motherName"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Father's Name</label>
+                <Field
+                  type="text"
+                  name="misc.fatherName"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-700">Address</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-600">Flat No</label>
+                <Field
+                  type="text"
+                  name="address.flatNo"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Building</label>
+                <Field
+                  type="text"
+                  name="address.building"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Street</label>
+                <Field
+                  type="text"
+                  name="address.street"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Pincode</label>
+                <Field
+                  type="text"
+                  name="address.pincode"
+                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                />
               </div>
             </div>
 
