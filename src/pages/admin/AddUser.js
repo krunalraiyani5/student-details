@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import QRCode from "qrcode";
 import { useNavigate } from "react-router-dom";
 import { insertStudent } from "../../utils/getDataFromGr";
@@ -7,6 +7,7 @@ import { insertStudent } from "../../utils/getDataFromGr";
 const AddUser = () => {
   const [qrCode, setQrCode] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [classOfStudent, setClassOfStudent] = useState(0);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -40,6 +41,10 @@ const AddUser = () => {
       compLab: false,
       eLibrary: false,
     },
+    grp1: [],
+    // grp2: "",
+    grp2MathsEconomics: "",
+    grp2ScienceEcology: "",
     grp3: "",
     HLPProgram: {
       dayOfParticipation: "Monday",
@@ -57,13 +62,23 @@ const AddUser = () => {
       street: "",
       pincode: "",
     },
+    hlp: "",
   };
 
   const handleSubmit = async (values, { resetForm }) => {
+    const AllValues = {
+      ...values,
+      class: String(classOfStudent),
+      grp1:
+        classOfStudent < 9
+          ? ["English", "Social Science", "Marathi"]
+          : ["English", "Social Science"],
+    };
+    // console.log(AllValues,"all values")
     setErrorMessage(null);
     try {
       const qrCodeData = await QRCode.toDataURL(values.grNumber);
-      const userData = { ...values, qr: qrCodeData };
+      const userData = { AllValues, qr: qrCodeData };
 
       const response = await insertStudent(values.grNumber, userData);
       if (response && response.error) {
@@ -191,9 +206,22 @@ const AddUser = () => {
                   as="select"
                   name="class"
                   className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                  value={classOfStudent}
+                  onChange={(e) => {
+                    setClassOfStudent(Number(e.target.value));
+                  }}
                 >
                   <option value="">Select Class</option>
-                  {/* Add Class Options Here */}
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
                 </Field>
               </div>
               <div>
@@ -347,40 +375,93 @@ const AddUser = () => {
                   <option value="Jain">Jain</option>
                 </Field>
               </div>
-              <div>
-                <label className="block text-gray-600">
-                  ICSE Group 3 list *
-                </label>
-                <Field
-                  as="select"
-                  name="grp3"
-                  className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
-                >
-                  <option value="">Select Group</option>
-                  <option value="Computer Applications">
-                    Computer Applications
-                  </option>
-                  <option value="Economic Applications">
-                    Economic Applications
-                  </option>
-                  <option value="Commercial Applications">
-                    Commercial Applications
-                  </option>
-                  <option value="Environmental Applications">
-                    Environmental Applications
-                  </option>
-                  <option value="Art">Art</option>
-                  <option value="Artificial inteligence and robotics">
-                    Artificial inteligence and robotics
-                  </option>
-                  <option value="Cookery">Cookery</option>
-                  <option value="Performing Arts (Dance, Drama, Music)">
-                    Performing Arts (Dance, Drama, Music)
-                  </option>
-                  <option value="Physical Education">Physical Education</option>
-                  <option value="Yoga">Yoga</option>
-                </Field>
-              </div>
+              {/* subject groups */}
+              {classOfStudent >= 9 ? (
+                <>
+                  <div>
+                    <label className="block text-gray-600">
+                      ICSE Group 1 list * (this subjects are compulsory)
+                    </label>
+                    <div>English</div>
+                    <div>Social Science</div>
+                    {classOfStudent < 9 && <div>Marathi</div>}
+                  </div>
+                  <div>
+                    <label className="block text-gray-600">
+                      ICSE Group 2 list (Mathematics/Economics) *
+                    </label>
+                    <Field
+                      as="select"
+                      name="grp2MathsEconomics"
+                      className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                    >
+                      <option value="">Select Group</option>
+                      <option value="Maths">Maths</option>
+                      <option value="Economics">Economics</option>
+                    </Field>
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-600">
+                      ICSE Group 2 list (Science/Ecology) *
+                    </label>
+                    <Field
+                      as="select"
+                      name="grp2ScienceEcology"
+                      className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                    >
+                      <option value="">Select Group</option>
+                      <option value="Science">Science</option>
+                      <option value="Ecology">Ecology</option>
+                    </Field>
+                  </div>
+                  <div>
+                    <label className="block text-gray-600">
+                      ICSE Group 3 list *
+                    </label>
+                    <Field
+                      as="select"
+                      name="grp3"
+                      className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                    >
+                      <option value="">Select Group</option>
+                      <option value="Computer Applications">
+                        Computer Applications
+                      </option>
+                      <option value="Economic Applications">
+                        Economic Applications
+                      </option>
+                      <option value="Commercial Applications">
+                        Commercial Applications
+                      </option>
+                      <option value="Environmental Applications">
+                        Environmental Applications
+                      </option>
+                      <option value="Art">Art</option>
+                      <option value="Artificial inteligence and robotics">
+                        Artificial inteligence and robotics
+                      </option>
+                      <option value="Cookery">Cookery</option>
+                      <option value="Performing Arts (Dance, Drama, Music)">
+                        Performing Arts (Dance, Drama, Music)
+                      </option>
+                      <option value="Physical Education">
+                        Physical Education
+                      </option>
+                      <option value="Yoga">Yoga</option>
+                    </Field>
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <label className="block text-gray-600">HLP</label>
+                  <Field
+                    type="text"
+                    name="misc.hlp"
+                    className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                  />
+                </div>
+              )}
             </div>
             <h3 className="text-xl font-semibold text-gray-700">
               Miscellaneous Information
