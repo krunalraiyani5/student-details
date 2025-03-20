@@ -78,8 +78,8 @@ const AddUser = () => {
     setErrorMessage(null);
     try {
       const qrCodeData = await QRCode.toDataURL(values.grNumber);
-      const userData = { AllValues, qr: qrCodeData };
-
+      const userData = { ...AllValues, qr: qrCodeData };
+      console.log("testetst", values.grNumber, userData);
       const response = await insertStudent(values.grNumber, userData);
       if (response && response.error) {
         window.scrollTo(0, 0);

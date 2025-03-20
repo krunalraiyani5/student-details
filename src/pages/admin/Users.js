@@ -51,6 +51,7 @@ const AllUsers = () => {
   };
 
   const handleEdit = (grNumber) => {
+    console.log("grNumber", grNumber);
     navigate(`/admin/updateUser/${grNumber}`);
   };
 
@@ -71,12 +72,14 @@ const AllUsers = () => {
         <div className="flex gap-2">
           <button
             onClick={handleAddUser}
-            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 ease-in-out">
+            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 ease-in-out"
+          >
             Add User
           </button>
           <button
             onClick={redirectHome}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 ease-in-out">
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 ease-in-out"
+          >
             Go To Home
           </button>
         </div>
@@ -98,7 +101,8 @@ const AllUsers = () => {
               {students.map((student) => (
                 <tr
                   key={student.grNumber}
-                  className="border-b hover:bg-gray-50">
+                  className="border-b hover:bg-gray-50"
+                >
                   <td className="px-4 py-2 text-center">
                     <img
                       src={`https://api.qrserver.com/v1/create-qr-code/?data=${student.grNumber}&size=100x100`}
@@ -110,23 +114,26 @@ const AllUsers = () => {
                     {student.grNumber}
                   </td>
                   <td className="px-4 py-2 text-sm text-center">
-                    {student.name}
+                    {student.firstName} {student?.lastName}
                   </td>
                   <td className="px-4 py-2 text-center">
                     <div className="flex justify-center">
                       <button
                         onClick={() => handleDownloadQR(student.qr)}
-                        className="px-4 py-2 bg-yellow-500 text-white rounded-lg mr-2 hover:bg-yellow-600 transition-all duration-300 ease-in-out">
+                        className="px-4 py-2 bg-yellow-500 text-white rounded-lg mr-2 hover:bg-yellow-600 transition-all duration-300 ease-in-out"
+                      >
                         Download QR
                       </button>
                       <button
                         onClick={() => handleEdit(student.grNumber)}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600 transition-all duration-300 ease-in-out">
+                        className="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600 transition-all duration-300 ease-in-out"
+                      >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDeleteClick(student.grNumber)}
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 ease-in-out">
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 ease-in-out"
+                      >
                         Delete
                       </button>
                     </div>
@@ -146,12 +153,14 @@ const AllUsers = () => {
             <div className="flex justify-end space-x-4">
               <button
                 onClick={handleCancelDelete}
-                className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition-all duration-300 ease-in-out">
+                className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition-all duration-300 ease-in-out"
+              >
                 Cancel
               </button>
               <button
                 onClick={handleConfirmDelete}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 ease-in-out">
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 ease-in-out"
+              >
                 Delete
               </button>
             </div>
